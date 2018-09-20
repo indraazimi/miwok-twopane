@@ -29,9 +29,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".NumbersActivity"
-            android:label="@string/category_numbers" />
+        <activity android:name=".WordActivity" />
         <activity
             android:name=".FamilyActivity"
             android:label="@string/category_family" />

@@ -15,12 +15,8 @@
  */
 package com.example.android.miwok;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,62 +26,5 @@ public class MainActivity extends AppCompatActivity {
 
         // Set the content of the activity to use the activity_main.xml layout file
         setContentView(R.layout.activity_main);
-
-        // Find the View that shows the numbers category
-        TextView numbers = (TextView) findViewById(R.id.numbers);
-
-        // Set a click listener on that View
-        numbers.setOnClickListener(new OnClickListener() {
-            // The code in this method will be executed when the numbers category is clicked on.
-            @Override
-            public void onClick(View view) {
-                categoryClick(R.string.category_numbers);
-            }
-        });
-
-        // Find the View that shows the family category
-        TextView family = (TextView) findViewById(R.id.family);
-
-        // Set a click listener on that View
-        family.setOnClickListener(new OnClickListener() {
-            // The code in this method will be executed when the family category is clicked on.
-            @Override
-            public void onClick(View view) {
-                categoryClick(R.string.category_family);
-            }
-        });
-
-        // Find the View that shows the colors category
-        TextView colors = (TextView) findViewById(R.id.colors);
-
-        // Set a click listener on that View
-        colors.setOnClickListener(new OnClickListener() {
-            // The code in this method will be executed when the colors category is clicked on.
-            @Override
-            public void onClick(View view) {
-                categoryClick(R.string.category_colors);
-            }
-        });
-
-        // Find the View that shows the phrases category
-        TextView phrases = (TextView) findViewById(R.id.phrases);
-
-        // Set a click listener on that View
-        phrases.setOnClickListener(new OnClickListener() {
-            // The code in this method will be executed when the phrases category is clicked on.
-            @Override
-            public void onClick(View view) {
-                categoryClick(R.string.category_phrases);
-            }
-        });
-    }
-
-    private void categoryClick(int categoryResId) {
-        // Create a new intent to open the {@link WordActivity}
-        Intent intent = new Intent(MainActivity.this, WordActivity.class);
-        // Tell {@link WordActivity} which category fragment should be open
-        intent.putExtra("category", categoryResId);
-        // Start the new activity
-        startActivity(intent);
     }
 }

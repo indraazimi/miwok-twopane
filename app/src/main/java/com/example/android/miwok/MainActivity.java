@@ -23,6 +23,7 @@ import android.support.v7.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity implements CategoryFragment.ClickHandler {
     private boolean isTwoPane;
+    private int selectedCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,13 +33,24 @@ public class MainActivity extends AppCompatActivity implements CategoryFragment.
         setContentView(R.layout.activity_main);
 
         isTwoPane = findViewById(R.id.frame_layout) != null;
+        if (isTwoPane) {
+            selectedCategory = savedInstanceState != null ?
+                    savedInstanceState.getInt("category") : R.string.category_numbers;
+            categoryClick(selectedCategory);
+        }
+    }
 
-        if (isTwoPane) categoryClick(R.string.category_numbers);
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        if (isTwoPane) outState.putInt("category", selectedCategory);
+        super.onSaveInstanceState(outState);
     }
 
     @Override
     public void categoryClick(int categoryResId) {
         if (isTwoPane) {
+            selectedCategory = categoryResId;
+
             Fragment fragment;
             switch (categoryResId) {
                 case R.string.category_numbers: fragment = new NumbersFragment(); break;

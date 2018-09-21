@@ -39,11 +39,7 @@ public class MainActivity extends AppCompatActivity {
             // The code in this method will be executed when the numbers category is clicked on.
             @Override
             public void onClick(View view) {
-                // Create a new intent to open the {@link WordActivity}
-                Intent intent = new Intent(MainActivity.this, WordActivity.class);
-
-                // Start the new activity
-                startActivity(intent);
+                categoryClick(R.string.category_numbers);
             }
         });
 
@@ -55,11 +51,7 @@ public class MainActivity extends AppCompatActivity {
             // The code in this method will be executed when the family category is clicked on.
             @Override
             public void onClick(View view) {
-                // Create a new intent to open the {@link FamilyActivity}
-                Intent familyIntent = new Intent(MainActivity.this, FamilyActivity.class);
-
-                // Start the new activity
-                startActivity(familyIntent);
+                categoryClick(R.string.category_family);
             }
         });
 
@@ -71,11 +63,7 @@ public class MainActivity extends AppCompatActivity {
             // The code in this method will be executed when the colors category is clicked on.
             @Override
             public void onClick(View view) {
-                // Create a new intent to open the {@link ColorsActivity}
-                Intent colorsIntent = new Intent(MainActivity.this, ColorsActivity.class);
-
-                // Start the new activity
-                startActivity(colorsIntent);
+                categoryClick(R.string.category_colors);
             }
         });
 
@@ -87,12 +75,17 @@ public class MainActivity extends AppCompatActivity {
             // The code in this method will be executed when the phrases category is clicked on.
             @Override
             public void onClick(View view) {
-                // Create a new intent to open the {@link PhrasesActivity}
-                Intent phrasesIntent = new Intent(MainActivity.this, PhrasesActivity.class);
-
-                // Start the new activity
-                startActivity(phrasesIntent);
+                categoryClick(R.string.category_phrases);
             }
         });
+    }
+
+    private void categoryClick(int categoryResId) {
+        // Create a new intent to open the {@link WordActivity}
+        Intent intent = new Intent(MainActivity.this, WordActivity.class);
+        // Tell {@link WordActivity} which category fragment should be open
+        intent.putExtra("category", categoryResId);
+        // Start the new activity
+        startActivity(intent);
     }
 }

@@ -15,10 +15,14 @@
  */
 package com.example.android.miwok;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements CategoryFragment.ClickHandler {
+    private boolean isTwoPane;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,5 +30,36 @@ public class MainActivity extends AppCompatActivity {
 
         // Set the content of the activity to use the activity_main.xml layout file
         setContentView(R.layout.activity_main);
+
+        isTwoPane = findViewById(R.id.frame_layout) != null;
+
+        if (isTwoPane) categoryClick(R.string.category_numbers);
+    }
+
+    @Override
+    public void categoryClick(int categoryResId) {
+        if (isTwoPane) {
+            Fragment fragment;
+            switch (categoryResId) {
+                case R.string.category_numbers: fragment = new NumbersFragment(); break;
+                case R.string.category_family: fragment = new FamilyFragment(); break;
+                case R.string.category_colors: fragment = new ColorsFragment(); break;
+                case R.string.category_phrases: fragment = new PhrasesFragment(); break;
+                default: throw new IllegalArgumentException();
+            }
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.frame_layout, fragment)
+                    .commit();
+        }
+        else {
+            // Create a new intent to open the {@link WordActivity}
+            Intent intent = new Intent(this, WordActivity.class);
+            // Tell {@link WordActivity} which category fragment should be open
+            intent.putExtra("category", categoryResId);
+            // Start the new activity
+            startActivity(intent);
+        }
     }
 }

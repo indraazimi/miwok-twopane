@@ -15,6 +15,7 @@
  */
 package com.example.android.miwok;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -27,6 +28,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 public class CategoryFragment extends Fragment {
+    private ClickHandler mHandler;
 
     @Nullable
     @Override
@@ -42,7 +44,7 @@ public class CategoryFragment extends Fragment {
             // The code in this method will be executed when the numbers category is clicked on.
             @Override
             public void onClick(View view) {
-                categoryClick(R.string.category_numbers);
+                mHandler.categoryClick(R.string.category_numbers);
             }
         });
 
@@ -54,7 +56,7 @@ public class CategoryFragment extends Fragment {
             // The code in this method will be executed when the family category is clicked on.
             @Override
             public void onClick(View view) {
-                categoryClick(R.string.category_family);
+                mHandler.categoryClick(R.string.category_family);
             }
         });
 
@@ -66,7 +68,7 @@ public class CategoryFragment extends Fragment {
             // The code in this method will be executed when the colors category is clicked on.
             @Override
             public void onClick(View view) {
-                categoryClick(R.string.category_colors);
+                mHandler.categoryClick(R.string.category_colors);
             }
         });
 
@@ -78,19 +80,26 @@ public class CategoryFragment extends Fragment {
             // The code in this method will be executed when the phrases category is clicked on.
             @Override
             public void onClick(View view) {
-                categoryClick(R.string.category_phrases);
+                mHandler.categoryClick(R.string.category_phrases);
             }
         });
 
         return view;
     }
 
-    private void categoryClick(int categoryResId) {
-        // Create a new intent to open the {@link WordActivity}
-        Intent intent = new Intent(getContext(), WordActivity.class);
-        // Tell {@link WordActivity} which category fragment should be open
-        intent.putExtra("category", categoryResId);
-        // Start the new activity
-        startActivity(intent);
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        try {
+            mHandler = (ClickHandler) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString()
+                    + " must implement ClickHandler");
+        }
+    }
+
+    interface ClickHandler {
+        void categoryClick(int categoryResId);
     }
 }
